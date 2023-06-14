@@ -1,8 +1,8 @@
-const readline = require('readline');
+const readline = require("readline");
 
 // considerando grafo sem setinha, (n da pra um aresta apontar pra ela msm)
 
-//exemplo matriz 2x2        
+//exemplo matriz 2x2
 /*
 	[ 	1   2
 		1	[0, 1],
@@ -22,7 +22,7 @@ const readline = require('readline');
 
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
 function prompt(question) {
@@ -58,7 +58,7 @@ async function initializeValues(graph) {
         `Digite o peso da aresta entre o vertice ${i} e o vertice ${j}: `
       );
       graph[i][j] = parseInt(value);
-			graph[j][i] = parseInt(value);
+      graph[j][i] = parseInt(value);
     }
   }
   rl.close();
