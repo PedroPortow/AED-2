@@ -75,6 +75,8 @@ class Graph:
 
         return adjacentNodes
 
+
+
     def prim(self, start = "A"):
         mst = {}
         visited = []
@@ -94,12 +96,12 @@ class Graph:
             current_index = self.nodes.index(current_node)
 
             for connection_index, path_weight in enumerate(self.graph[current_index]):
-                neighbor_node = self.nodes[connection_index]
+                connected_node = self.nodes[connection_index]
 
-                if path_weight > 0 and neighbor_node not in visited:
-                    mst[neighbor_node] = current_node
+                if path_weight > 0 and connected_node not in visited:
+                    mst[connected_node] = current_node
 
-                    queue.append((path_weight, neighbor_node))
+                    queue.append((path_weight, connected_node))
 
         return mst
 
@@ -159,12 +161,23 @@ class Graph:
 
 if __name__ == '__main__':
     g = Graph()
-    g.nodes = ['A', 'B', 'C', 'D']
-    g.graph = [
-        [0, 2, 1, 0],
-        [2, 0, 3, 0],
-        [1, 3, 0, 5],
-        [0, 0, 5, 0]
-    ]
-    mst = g.prim("A")
+    g.insertNode("1") # 0
+    g.insertNode("2") # 1
+    g.insertNode("3") # 2
+    g.insertNode("4") # 3
+    g.insertNode("5") # 4
+    g.insertNode("6") # 5
+    g.insertNode("7") # 6
+
+    g.insertPath(0, 1, 28, False)
+    g.insertPath(1, 2, 16, False)
+    g.insertPath(2, 3, 12, False)
+    g.insertPath(3, 4, 22, False)
+    g.insertPath(3, 6, 18, False)
+    g.insertPath(4, 5, 25, False)
+    g.insertPath(4, 6, 24, False)
+    g.insertPath(5, 0, 10, False)
+    g.insertPath(6, 1, 14, False)
+
+    mst = g.prim("1")
     print(mst)

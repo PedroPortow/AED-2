@@ -40,47 +40,6 @@ class Graph
     @graph.key?(node)
   end
 
-  # def dijkstra(source, dest)
-  #   distances = {}     # dist min nós ao nó de origem
-  #   previous_nodes = {}  # predecessores que foram o caminho minimo
-
-  #   # Inicialização das distâncias para todos os nós (exceto o nó de origem) como infinito
-  #   @graph.keys.each do |node|
-  #     distances[node] = 999999
-  #   end
-
-  #   distances[source] = 0
-
-  #   unvisited_nodes = @graph.keys
-  #   puts distances
-  # end
-
-  # def kruskal
-  #   mst = []
-  #   visited = []
-  #   sorted_paths = []
-
-  #   @graph.each do |node_key, adjacent_nodes|
-  #     adjacent_nodes.each do |path|
-  #       sorted_paths << {source: node_key, dest: path[:node], weight: path[:weight]}
-  #     end
-  #   end
-
-  #   sorted_paths.sort_by! { |path| path[:weight] }
-
-  #   sorted_paths.each do |path|
-  #     next if visited.include? (path[:source])
-
-  #     mst.each do |mst_path|
-  #       mst << path unless mst_path[:source] == path[:source]
-  #     end
-
-  #     visited.push(path[:source])
-  #   end
-
-  #   puts mst
-  # end
-
   def prim(start = "A")
     mst = []  # array com os nós mst
     visited = []   # nós já visitados
