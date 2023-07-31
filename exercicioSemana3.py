@@ -75,43 +75,33 @@ class Graph:
 
         return adjacentNodes
 
-    def kruskal(self):
-        #  PATHWEIGHTS EM ORDEM ASCENDENTE
-        pathWeights = PriorityQueue()
+    def prim(self, start = "A"):
+        mst = {}
+        visited = []
+        queue = []
+                    # peso, nó
+        queue.append((0, start))
 
-        # Populate the priority queue with all pathWeights and their weights
-        for i in range(len(self.nodes)):
-            for j in range(len(self.nodes)):
-                weight = self.graph[i][j]
-                pathWeights.put((weight, (i, j)))
+        while queue:
+            queue.sort(key=lambda x: x[0])
+            weight, current_node = queue.pop(0)
 
-        # Create disjoint sets for each node
-        disjoint_sets = [{i} for i in range(len(self.nodes))]
+            if current_node in visited:
+                continue
 
-        # Initialize the minimum spanning tree (MST)
-        MST = []
+            visited.append(current_node)
 
-        # Kruskal's algorithm
-        while not pathWeights.empty() and len(MST) < len(self.nodes) - 1:
-            weight, (source, dest) = pathWeights.get()
+            current_index = self.nodes.index(current_node)
 
-            # Check if adding the edge creates a cycle in the MST
-            source_set = None
-            dest_set = None
-            for s in disjoint_sets:
-                if source in s:
-                    source_set = s
-                if dest in s:
-                    dest_set = s
+            for connection_index, path_weight in enumerate(self.graph[current_index]):
+                neighbor_node = self.nodes[connection_index]
 
-            if source_set != dest_set:
-                # Add the edge to the MST
-                MST.append((source, dest, weight))
+                if path_weight > 0 and neighbor_node not in visited:
+                    mst[neighbor_node] = current_node
 
-                # Merge the sets (Union)
-                source_set.update(dest_set)
+                    queue.append((path_weight, neighbor_node))
 
-        return MST
+        return mst
 
     def getDijkstraPath(self, source, dest):
         if source >= len(self.nodes):
@@ -169,38 +159,12 @@ class Graph:
 
 if __name__ == '__main__':
     g = Graph()
-    g.insertNode("A")
-    g.insertNode("B")
-    g.insertNode("C")
-    g.insertNode("D")
-    g.insertNode("E")
-    g.insertNode("F")
-    g.insertPath(0, 1, 2)
-    g.insertPath(0, 2, 1)
-    g.insertPath(1, 3, 1)
-    g.insertPath(2, 3, 3)
-    g.insertPath(2, 4, 4)
-    g.insertPath(4, 5, 2)
-    g.insertPath(3, 5, 2)
-    path = g.getDijkstraPath(0, 5)
-    print(path)
-
-    g2 = Graph()
-    g2.insertNode("A") #0
-    g2.insertNode("B") #1
-    g2.insertNode("C") #2
-    g2.insertNode("D") #3
-    g2.insertNode("E") #4
-    g2.insertNode("F") #5
-    g2.insertPath(0, 1, 10)
-    g2.insertPath(0, 3, 5)
-    g2.insertPath(3, 1, 3)
-    g2.insertPath(1, 2, 1)
-    g2.insertPath(3, 2, 8)
-    g2.insertPath(3, 4, 2)
-    g2.insertPath(4, 5, 6)
-    g2.insertPath(2, 4, 4)
-    g2.insertPath(2, 5, 4)
-    path = g2.getDijkstraPath(0, 5)
-    print(path)
-
+    g.nodes = ['A', 'B', 'C', 'D']
+    g.graph = [
+        [0, 2, 1, 0],
+        [2, 0, 3, 0],
+        [1, 3, 0, 5],
+        [0, 0, 5, 0]
+    ]
+    mst = g.prim("A")
+    print(mst)

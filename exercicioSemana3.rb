@@ -15,6 +15,7 @@ class Graph
     end
   end
 
+
   def remove_node(node)
     @graph.delete(node)
     @graph.each do |_, adjacentNodes|
@@ -54,10 +55,31 @@ class Graph
   #   puts distances
   # end
 
-  def kruskal
-    mst = []
+  # def kruskal
+  #   mst = []
+  #   visited = []
+  #   sorted_paths = []
 
-  end
+  #   @graph.each do |node_key, adjacent_nodes|
+  #     adjacent_nodes.each do |path|
+  #       sorted_paths << {source: node_key, dest: path[:node], weight: path[:weight]}
+  #     end
+  #   end
+
+  #   sorted_paths.sort_by! { |path| path[:weight] }
+
+  #   sorted_paths.each do |path|
+  #     next if visited.include? (path[:source])
+
+  #     mst.each do |mst_path|
+  #       mst << path unless mst_path[:source] == path[:source]
+  #     end
+
+  #     visited.push(path[:source])
+  #   end
+
+  #   puts mst
+  # end
 
   def prim(start = "A")
     mst = []  # array com os nós mst
@@ -104,19 +126,19 @@ graph.add_node("F")
 graph.add_node("E")
 graph.add_node("G")
 
-graph.add_path("A", "B", 2, false)
-graph.add_path("A", "D", 3, false)
-graph.add_path("A", "C", 3, false)
-graph.add_path("B", "C", 4, false)
-graph.add_path("B", "E", 3, false)
-graph.add_path("C", "D", 5, false)
-graph.add_path("C", "E", 1, false)
-graph.add_path("C", "F", 6, false)
-graph.add_path("D", "F", 7, false)
-graph.add_path("E", "F", 8, false)
-graph.add_path("F", "G", 9, false)
+# graph.add_path("A", "B", 2, false)
+# graph.add_path("A", "D", 3, false)
+# graph.add_path("A", "C", 3, false)
+# graph.add_path("B", "C", 4, false)
+# graph.add_path("B", "E", 3, false)
+# graph.add_path("C", "D", 5, false)
+# graph.add_path("C", "E", 1, false)
+# graph.add_path("C", "F", 6, false)
+# graph.add_path("D", "F", 7, false)
+# graph.add_path("E", "F", 8, false)
+# graph.add_path("F", "G", 9, false)
 
 
 mst = graph.prim("A")
+# mst = graph.kruskal
 
-puts mst
